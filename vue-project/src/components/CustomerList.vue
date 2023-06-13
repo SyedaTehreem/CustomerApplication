@@ -1,7 +1,8 @@
 <template>
   <div>
     <h2>Customer List</h2>
-    <table>
+
+    <table v-if="isLoggedIn">
       <!-- Table body content -->
       <tbody>
         <tr v-for="customer in customers" :key="customer.id">
@@ -27,11 +28,17 @@
 <script>
 import axios from 'axios';
 import EditCustomer from './EditCustomer.vue';
+import store from '../store';
 
 export default {
   components: {
     EditCustomer,
   },
+    computed: {
+      isLoggedIn() {
+        return this.$store.state.isLoggedIn;
+      },
+    },
   data() {
     return {
       customers: [], // Initialize an empty array to store the customers
@@ -90,6 +97,13 @@ export default {
           console.error(error);
         });
     },
+    logout() { //alert("fsgfd");
+        // Perform the logout logic here
+        // For example, you can clear the session storage, update the isLoggedIn status, etc.
+        // Then redirect the user to the login page
+         this.$store.commit('setLoggedIn', false);
+             this.$router.push('/login');
+      },
   },
   mounted() {
     this.fetchCustomers(); // Call the fetchCustomers method when the component is mounted
@@ -98,6 +112,19 @@ export default {
     const customerId = this.$route.params.id;
     if (customerId) {
       this.selectedCustomer = this.customers.find(customer => customer.id === Number(customerId));
+    }
+  },
+
+  beforeRouteEnter(to, from, next) {
+    // Navigation guard to check if the user is logged in
+    const isLoggedIn = store.state.isLoggedIn; // Access the store directly
+
+    if (!isLoggedIn) {
+      // If the user is not logged in, redirect to the login page
+      next('/login');
+    } else {
+      // If the user is logged in, proceed to the component
+      next();
     }
   },
 };

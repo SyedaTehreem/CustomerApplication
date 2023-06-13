@@ -1,5 +1,5 @@
 <template>
-<div class="container">
+<div class="container"  v-if="isLoggedIn">
   <div class="form-container">
   <img src="../assets/baner.jpg" alt="Image Description">
 
@@ -36,10 +36,7 @@
 </template>
 
 <script>
-
-
-
-
+import store from '../store';
 
 export default {
   name: 'FormComponent', // Update the component name to be multi-word
@@ -55,7 +52,11 @@ export default {
         users: [] // Initialize the users array
     };
   },
-
+  computed: {
+      isLoggedIn() {
+        return this.$store.state.isLoggedIn;
+      },
+    },
   methods: {
 
    handleSubmit(event) {
@@ -110,8 +111,30 @@ handleUserEdited(editedUser) {
       }
       return user;
     });
-  }
+  },
 
+   logout() { //alert("fsgfd");
+                 // Perform the logout logic here
+                 // For example, you can clear the session storage, update the isLoggedIn status, etc.
+                 // Then redirect the user to the login page
+                  this.$store.commit('setLoggedIn', false);
+                      this.$router.push('/login');
+               }
+
+  },
+
+
+  beforeRouteEnter(to, from, next) {
+    // Navigation guard to check if the user is logged in
+    const isLoggedIn = store.state.isLoggedIn; // Access the store directly
+
+    if (!isLoggedIn) {
+      // If the user is not logged in, redirect to the login page
+      next('/login');
+    } else {
+      // If the user is logged in, proceed to the component
+      next();
+    }
   },
 };
 </script>

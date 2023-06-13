@@ -36,7 +36,7 @@
 
 <script>
 import axios from 'axios';
-
+import store from '../store';
 
 export default {
 name: 'EditCustomer',
@@ -104,7 +104,28 @@ name: 'EditCustomer',
                   console.error(error);
                   // Optionally, you can show an error message or perform any other error handling
                 });
+
     },
+    logout() { //alert("fsgfd");
+                     // Perform the logout logic here
+                     // For example, you can clear the session storage, update the isLoggedIn status, etc.
+                     // Then redirect the user to the login page
+                      this.$store.commit('setLoggedIn', false);
+                          this.$router.push('/login');
+                   }
+  },
+
+  beforeRouteEnter(to, from, next) {
+    // Navigation guard to check if the user is logged in
+    const isLoggedIn = store.state.isLoggedIn; // Access the store directly
+
+    if (!isLoggedIn) {
+      // If the user is not logged in, redirect to the login page
+      next('/login');
+    } else {
+      // If the user is logged in, proceed to the component
+      next();
+    }
   },
 };
 </script>

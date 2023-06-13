@@ -53,15 +53,14 @@ public class CustomerServiceImpl implements CustomerService {
         Optional<CustomerInfo> oldCustomer = customerRepository.findById(customerId);
         if (oldCustomer.isPresent()) {
             CustomerInfo existingCustomer = oldCustomer.get();
-            existingCustomer.setId(updatedCustomerInfo.getId());
+           /* existingCustomer.setId(updatedCustomerInfo.getId());*/
             existingCustomer.setName(updatedCustomerInfo.getName());
             existingCustomer.setLast_name(updatedCustomerInfo.getLast_name());
             existingCustomer.setAddress(updatedCustomerInfo.getAddress());
             existingCustomer.setCity(updatedCustomerInfo.getCity());
             existingCustomer.setCountry(updatedCustomerInfo.getCountry());
 
-            // jjjj ;
-            
+           
             return customerRepository.save(existingCustomer);
         } else {
             throw new RuntimeException("Customer not found");

@@ -71,6 +71,6 @@ public class CustomerController {
         CustomerInfo createdCustomer = customerService.addCustomer(customerInfo);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdCustomer);
     }
-
+    ////Login Mapping
 
 }

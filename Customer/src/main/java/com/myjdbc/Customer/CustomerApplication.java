@@ -1,5 +1,7 @@
 package com.myjdbc.Customer;
 
+import com.myjdbc.Customer.repoImpl.UserRepositoryImpl;
+import com.myjdbc.Customer.repository.UserRepository;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -27,5 +29,10 @@ public class CustomerApplication {
 			}
 		};
 	}
+	@Bean
+	public UserRepository userRepository() {
+		return new UserRepositoryImpl();
+	}
+
 
 }
