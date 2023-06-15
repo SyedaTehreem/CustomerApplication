@@ -60,7 +60,7 @@ public class CustomerServiceImpl implements CustomerService {
             existingCustomer.setCity(updatedCustomerInfo.getCity());
             existingCustomer.setCountry(updatedCustomerInfo.getCountry());
 
-           
+
             return customerRepository.save(existingCustomer);
         } else {
             throw new RuntimeException("Customer not found");

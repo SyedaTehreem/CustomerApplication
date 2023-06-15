@@ -26,11 +26,7 @@
       Form submitted successfully!
 
     </div>
-        <!-- Display list of users -->
-         <CustomerList :users="users" />
 
-      <!-- Add EditUser component here -->
-      <EditCustomer :user="selectedUser" @userEdited="handleUserEdited" />
   </div>
   </div>
 </template>

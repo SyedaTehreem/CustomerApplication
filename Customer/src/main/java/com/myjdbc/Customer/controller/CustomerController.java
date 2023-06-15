@@ -35,7 +35,7 @@ public class CustomerController {
         return ResponseEntity.status(HttpStatus.CREATED).body(createdCustomer);
     }
 
-    @PutMapping("/update/{customerId}")
+    @PutMapping("/.update/{customerId}")
     public ResponseEntity<CustomerInfo> updateCustomer(@PathVariable int customerId, @RequestBody CustomerInfo customerInfo) {
 
         CustomerInfo updatedCustomer = customerService.updateCustomer(customerId, customerInfo);
@@ -71,6 +71,6 @@ public class CustomerController {
         CustomerInfo createdCustomer = customerService.addCustomer(customerInfo);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdCustomer);
     }
-    ////Login Mapping
+
 
 }
